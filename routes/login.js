@@ -1,10 +1,8 @@
-import react from "react";
 import express from "express";
+import loginController from "../controllers/login-controller.js";
 
 const login = express.Router();
 
-login.get("/", (req, res) => {
-  res.send("Hello from login route!");
-});
+login.post("/", loginController);
 
 export default login;

@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import login from "./routes/login.js";
+import signup from "./routes/signup.js";
+import root from "./routes/root.js";
 
 dotenv.config();
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
@@ -16,11 +18,10 @@ app.use(
   })
 );
 
-app.get("/", (_req, res) => {
-  res.send("Hello World!");
-});
+app.use("/", root);
 
 app.use("/login", login);
+app.use("/signup", signup);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
