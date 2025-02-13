@@ -9,14 +9,18 @@ dotenv.config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
 async function loginController(req, res) {
-  const email = req.body.email;
-  const password = req.body.password;
+  const bodyEmail = req.body.email;
+  const bodyPassword = req.body.password;
+  console.log(bodyEmail, bodyPassword);
   try {
-    const login = await knex("user").where("email", email);
-    const bytes = CryptoJS.AES.decrypt(login.password, SECRET_KEY);
+    const login = await knex("user").where({ email: bodyEmail }).select("*");
+    const dbHash = CryptoJS.AES.decrypt(login[0].password, SECRET_KEY);
+    const dbPW = dbHash.toString(CryptoJS.enc.Utf8);
+    console.log(dbPW, bodyPassword);
 
-    if (bytes.toString(CryptoJS.enc.Utf8) === login.password) {
-      res.send("Success");
+    if (`${bodyPassword}` === `${dbPW}`) {
+      const token = CryptoJS.SHA256(login[0].id).toString();
+      res.status(200).json({ token: token });
     } else {
       res.send("Failed");
     }
