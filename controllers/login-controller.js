@@ -19,7 +19,10 @@ async function loginController(req, res) {
     console.log(dbPW, bodyPassword);
 
     if (`${bodyPassword}` === `${dbPW}`) {
-      const token = CryptoJS.SHA256(login[0].id).toString();
+      const token = CryptoJS.AES.encrypt(
+        `${login[0].id}`,
+        SECRET_KEY
+      ).toString();
       res.status(200).json({ token: token });
     } else {
       res.send("Failed");
