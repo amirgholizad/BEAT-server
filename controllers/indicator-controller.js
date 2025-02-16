@@ -1,3 +1,10 @@
+import initKnex from "knex";
+import configuration from "../knexfile.js";
+import dotenv from "dotenv";
+const knex = initKnex(configuration);
+
+dotenv.config();
+
 async function getAllIndicators(_req, res) {
   try {
     const indicators = await knex("indicator").select("*");
