@@ -5,6 +5,7 @@
 export function up(knex) {
   return knex.schema.createTable("user", (table) => {
     table.increments("id").primary();
+    table.string("user_name").notNullable();
     table.string("email").notNullable();
     table.string("password").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
@@ -19,5 +20,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable("user");
+  return knex.schema.dropTable("indicator").dropTable("user");
 }

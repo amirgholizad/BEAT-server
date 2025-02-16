@@ -5,6 +5,7 @@ import login from "./routes/login.js";
 import signup from "./routes/signup.js";
 import root from "./routes/root.js";
 import user from "./routes/user.js";
+import indicator from "./routes/indicator.js";
 
 dotenv.config();
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
@@ -24,6 +25,7 @@ app.use("/", root);
 app.use("/login", login);
 app.use("/signup", signup);
 app.use("/user", user);
+app.use("/indicator", indicator);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
