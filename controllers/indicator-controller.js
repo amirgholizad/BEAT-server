@@ -25,4 +25,16 @@ async function getIndicatorById(req, res) {
   }
 }
 
-export { getAllIndicators, getIndicatorById };
+async function getIndicatorWithUser(req, res) {
+  try {
+    const indicator = await knex("indicator")
+      .join("user", "indicator.user_id", "user.id")
+      .select("indicator.*", "user.user_name")
+      .where("indicator.id", req.params.id);
+    res.status(200).json(indicator);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { getAllIndicators, getIndicatorById, getIndicatorWithUser };
