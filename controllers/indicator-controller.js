@@ -37,4 +37,51 @@ async function getIndicatorWithUser(req, res) {
   }
 }
 
-export { getAllIndicators, getIndicatorById, getIndicatorWithUser };
+async function editIndicatorDB(req, res) {
+  const id = req.params.id;
+  const indicator = {
+    user_id: req.body.user_id,
+    name: req.body.name,
+    description: req.body.description,
+    type: req.body.type,
+    language: req.body.language,
+    license: req.body.license,
+    code: req.body.code,
+    rating: req.body.rating,
+    rating_count: req.body.rating_count,
+  };
+  try {
+    await knex("indicator").where({ id: id }).update(indicator);
+    res.status(200).json("Success");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function createIndicatorDB(req, res) {
+  const indicator = {
+    user_id: req.body.user_id,
+    name: req.body.name,
+    description: req.body.description,
+    type: req.body.type,
+    language: req.body.language,
+    license: req.body.license,
+    code: req.body.code,
+    rating: "0",
+    rating_count: "0",
+  };
+  try {
+    await knex("indicator").insert(indicator);
+    res.status(200).json("Success");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export {
+  getAllIndicators,
+  getIndicatorById,
+  getIndicatorWithUser,
+  editIndicatorDB,
+  createIndicatorDB,
+};
