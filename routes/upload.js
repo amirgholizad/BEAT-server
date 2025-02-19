@@ -15,9 +15,8 @@ const storage = multer.diskStorage({
     cb(null, uploadDir);
   },
   filename: function (req, file, cb) {
-    const user_name = req.query.user_name || "anonymous";
-    const date = new Date().toISOString().split("T")[0];
-    cb(null, `${user_name}_${date}.png`);
+    const photo_name = req.query.photo_name || "anonymous";
+    cb(null, `${photo_name}.png`);
   },
 });
 
