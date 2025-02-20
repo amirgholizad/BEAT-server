@@ -2,7 +2,6 @@ import initKnex from "knex";
 import configuration from "../knexfile.js";
 import dotenv from "dotenv";
 const knex = initKnex(configuration);
-import { useState, useEffect } from "react";
 
 dotenv.config();
 

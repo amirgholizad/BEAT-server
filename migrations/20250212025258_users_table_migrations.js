@@ -20,5 +20,5 @@ export function up(knex) {
  * @returns { Promise<void> }
  */
 export function down(knex) {
-  return knex.schema.dropTable("indicator").dropTable("user");
+  return knex.schema.dropTable("blog").dropTable("indicator").dropTable("user");
 }
