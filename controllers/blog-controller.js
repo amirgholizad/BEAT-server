@@ -36,4 +36,17 @@ async function getAllBlogs(req, res) {
   }
 }
 
-export { createBlog, getAllBlogs };
+async function getBlogById(req, res) {
+  const { id } = req.params;
+  try {
+    const blog = await knex("blog")
+      .join("user", "blog.user_id", "user.id")
+      .where("blog.id", id)
+      .select("blog.*", "user.user_name");
+    res.status(200).json(blog);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { createBlog, getAllBlogs, getBlogById };
