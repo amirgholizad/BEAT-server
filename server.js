@@ -8,6 +8,7 @@ import user from "./routes/user.js";
 import indicator from "./routes/indicator.js";
 import uploadRoute from "./routes/upload.js";
 import bodyParser from "body-parser";
+import blog from "./routes/blog.js";
 
 dotenv.config();
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
@@ -32,6 +33,7 @@ app.use("/signup", signup);
 app.use("/user", user);
 app.use("/indicator", indicator);
 app.use("/upload", uploadRoute);
+app.use("/blog", blog);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
