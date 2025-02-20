@@ -1,7 +1,6 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
 import dotenv from "dotenv";
-import { Links } from "react-router-dom";
 const knex = initKnex(configuration);
 
 dotenv.config();
@@ -26,4 +25,15 @@ async function createBlog(req, res) {
   }
 }
 
-export { createBlog };
+async function getAllBlogs(req, res) {
+  try {
+    const blog = await knex("blog")
+      .join("user", "blog.user_id", "user.id")
+      .select("blog.*", "user.user_name");
+    res.status(200).json(blog);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { createBlog, getAllBlogs };

@@ -34,6 +34,7 @@ app.use("/user", user);
 app.use("/indicator", indicator);
 app.use("/upload", uploadRoute);
 app.use("/blog", blog);
+app.use("/covers", express.static("./public/uploads"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

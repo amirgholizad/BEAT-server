@@ -1,9 +1,9 @@
 import express from "express";
-import { createBlog } from "../controllers/blog-controller.js";
+import { createBlog, getAllBlogs } from "../controllers/blog-controller.js";
 
 const blog = express.Router();
 
-// indicator.get("/", getAllIndicators);
+blog.get("/", getAllBlogs);
 // indicator.get("/:id", getIndicatorById);
 // indicator.get("/:id/user", getIndicatorWithUser);
 // indicator.put("/:id", editIndicatorDB);
