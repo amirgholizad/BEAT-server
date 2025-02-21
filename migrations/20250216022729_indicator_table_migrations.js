@@ -15,8 +15,8 @@ export function up(knex) {
     table.string("type").notNullable();
     table.string("language").notNullable();
     table.string("license").notNullable();
-    table.string("description").notNullable();
-    table.string("code").notNullable();
+    table.text("description").notNullable();
+    table.text("code").notNullable();
     table.string("rating").notNullable();
     table.integer("rating_count").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
