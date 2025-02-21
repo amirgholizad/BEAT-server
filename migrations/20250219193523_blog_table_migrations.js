@@ -14,7 +14,7 @@ export function up(knex) {
     table.string("title").notNullable();
     table.string("links").notNullable();
     table.string("files").notNullable();
-    table.string("content", 1000).notNullable();
+    table.text("content", 1000).notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
   });
 }
