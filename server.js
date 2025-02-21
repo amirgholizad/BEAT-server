@@ -9,6 +9,11 @@ import indicator from "./routes/indicator.js";
 import uploadRoute from "./routes/upload.js";
 import bodyParser from "body-parser";
 import blog from "./routes/blog.js";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import path from "path";
+import { fileURLToPath } from "url";
+import coinbase from "./routes/coinbase.js"; // Import the WebSocket route
 
 dotenv.config();
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
@@ -18,6 +23,8 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+const server = createServer(app);
+const io = new Server(server);
 
 app.use(express.json());
 app.use(
@@ -26,16 +33,24 @@ app.use(
   })
 );
 
-app.use("/", root);
+app.use("/api", root);
 
-app.use("/login", login);
-app.use("/signup", signup);
-app.use("/user", user);
-app.use("/indicator", indicator);
-app.use("/upload", uploadRoute);
-app.use("/blog", blog);
-app.use("/covers", express.static("./public/uploads"));
+// Use API routes
+app.use("/api/login", login);
+app.use("/api/signup", signup);
+app.use("/api/user", user);
+app.use("/api/indicator", indicator);
+app.use("/api/upload", uploadRoute);
+app.use("/api/blog", blog);
+app.use("/api/covers", express.static("./public/uploads"));
+
+// Use the WebSocket route
+coinbase(io);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+server.listen(3001, () => {
+  console.log("Socket.io server running on port 3001");
 });
