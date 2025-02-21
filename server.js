@@ -11,8 +11,6 @@ import bodyParser from "body-parser";
 import blog from "./routes/blog.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import path from "path";
-import { fileURLToPath } from "url";
 import coinbase from "./routes/coinbase.js"; // Import the WebSocket route
 
 dotenv.config();
@@ -24,12 +22,20 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    credentials: true,
+    methods: ["GET", "POST"],
+  },
+});
 
 app.use(express.json());
 app.use(
   cors({
     origin: CORS_ORIGIN,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
 );
 
