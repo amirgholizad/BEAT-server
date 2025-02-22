@@ -1,12 +1,10 @@
 import axios from "axios";
 
 const getHistory = async (req, res) => {
-  const product_id = req.body.product_id;
-  const granularity = req.body.granularity;
-  const start = req.body.start;
-  const end = req.body.end;
-  // const end = new Date();
-  // const start = new Date(end.getTime() - 60 * 60 * 1000); // Last 1 hour
+  const product_id = `${req.query.product_id}`;
+  const granularity = `${req.query.granularity}`;
+  const start = `${req.query.start}`;
+  const end = `${req.query.end}`;
   const config = {
     method: "get",
     maxBodyLength: Infinity,
@@ -18,7 +16,15 @@ const getHistory = async (req, res) => {
 
   try {
     const response = await axios.request(config);
-    res.json(response.data);
+    const candles = response.data.map((candle) => ({
+      time: candle[0],
+      low: candle[1],
+      high: candle[2],
+      open: candle[3],
+      close: candle[4],
+      volume: candle[5],
+    }));
+    res.json(candles);
   } catch (error) {
     console.error(error);
   }
