@@ -11,7 +11,8 @@ import bodyParser from "body-parser";
 import blog from "./routes/blog.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import coinbase from "./routes/coinbase.js"; // Import the WebSocket route
+import coinbase from "./routes/coinbase.js";
+import price from "./routes/price.js";
 
 dotenv.config();
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
@@ -48,6 +49,7 @@ app.use("/api/user", user);
 app.use("/api/indicator", indicator);
 app.use("/api/upload", uploadRoute);
 app.use("/api/blog", blog);
+app.use("/api/price", price);
 app.use("/api/covers", express.static("./public/uploads"));
 
 // Use the WebSocket route
