@@ -12,6 +12,7 @@ import blog from "./routes/blog.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import coinbase from "./routes/coinbase.js";
+import binance from "./routes/binance.js";
 import price from "./routes/price.js";
 
 dotenv.config();
@@ -23,13 +24,13 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST"],
-  },
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//     credentials: true,
+//     methods: ["GET", "POST"],
+//   },
+// });
 
 app.use(express.json());
 app.use(
@@ -53,12 +54,13 @@ app.use("/api/price", price);
 app.use("/api/covers", express.static("./public/uploads"));
 
 // Use the WebSocket route
-coinbase(io);
+// coinbase(io);
+// binance(io);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-server.listen(3001, () => {
-  console.log("Socket.io server running on port 3001");
-});
+// server.listen(3001, () => {
+//   console.log("Socket.io server running on port 3001");
+// });

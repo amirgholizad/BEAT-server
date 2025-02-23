@@ -18,11 +18,13 @@ export default function coinbase(io) {
   coinbaseSocket.on("message", (data) => {
     const parsedData = JSON.parse(data);
     if (parsedData.type === "ticker") {
-      //   console.log("📈 Price Update:", parsedData);
+      console.log("📈 Price Update:", parsedData);
       // Emit real-time data to frontend via Socket.IO
-      io.emit("priceUpdate", {
-        parsedData,
-      });
+      setTimeout(() => {
+        io.emit("priceUpdate", {
+          parsedData,
+        });
+      }, 1000);
     }
   });
 
