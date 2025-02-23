@@ -31,4 +31,13 @@ async function userAuthController(req, res) {
   }
 }
 
-export { getUserController, userAuthController };
+async function getUserById(req, res) {
+  try {
+    const user = await knex("user").where({ id: req.params.id }).select("*");
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { getUserController, userAuthController, getUserById };
