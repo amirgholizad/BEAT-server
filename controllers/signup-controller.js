@@ -12,7 +12,7 @@ async function signupController(req, res) {
   const email = req.body.email;
   const password = req.body.password;
   const decryptedPassword = CryptoJS.AES.decrypt(
-    req.body.password,
+    password,
     process.env.SECRET_KEY
   ).toString(CryptoJS.enc.Utf8);
   try {
@@ -28,7 +28,6 @@ async function signupController(req, res) {
         data: { user_name: user_name },
       },
     });
-
     res.status(200).json("Success");
   } catch (err) {
     res.status(500).send(`Error signing up: ${err}`);

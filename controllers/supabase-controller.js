@@ -4,5 +4,4 @@ dotenv.config();
 
 const supabaseUrl = "https://uvnjjfynelpswullflco.supabase.co";
 const supabaseKey = process.env.SUPABASE_KEY;
-console.log(supabaseKey);
 export const supabase = createClient(supabaseUrl, supabaseKey);
