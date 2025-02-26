@@ -14,6 +14,7 @@ import { Server } from "socket.io";
 import coinbase from "./routes/coinbase.js";
 import binance from "./routes/binance.js";
 import price from "./routes/price.js";
+import candlestick from "./routes/candlestick.js";
 
 dotenv.config();
 const CORS_ORIGIN = process.env.CORS_ORIGIN;
@@ -23,7 +24,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-const server = createServer(app);
+// const server = createServer(app);
 // const io = new Server(server, {
 //   cors: {
 //     origin: "*",
@@ -53,9 +54,8 @@ app.use("/api/blog", blog);
 app.use("/api/price", price);
 app.use("/api/covers", express.static("./public/uploads"));
 
-// Use the WebSocket route
-// coinbase(io);
-// binance(io);
+// // Use the WebSocket route
+// candlestick(io);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

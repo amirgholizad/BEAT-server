@@ -8,7 +8,7 @@ const getHistory = async (req, res) => {
   const config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `https://api.exchange.coinbase.com/products/${product_id}/candles?granularity=${granularity}&start=${start}&end=${end}`,
+    url: `https://api.exchange.coinbase.com/products/${product_id}/candles?granularity=${granularity}`,
     headers: {
       "Content-Type": "application/json",
     },
@@ -17,12 +17,11 @@ const getHistory = async (req, res) => {
   try {
     const response = await axios.request(config);
     const candles = response.data.map((candle) => ({
-      time: candle[0],
-      low: candle[1],
-      high: candle[2],
       open: candle[3],
+      high: candle[2],
+      low: candle[1],
       close: candle[4],
-      volume: candle[5],
+      time: Math.floor(candle[0]),
     }));
     res.json(candles);
   } catch (error) {
